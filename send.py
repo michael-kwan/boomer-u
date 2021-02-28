@@ -23,16 +23,17 @@ resp = requests.get(airtable_get)
 numbers = json.loads(resp.content.decode("utf-8"))
 num_set = set()
 
-dry_run = True
+dry_run = False
 
-if (dry_run):
+if dry_run:
 	num_set = set()
 	num_set.add('+14086668054')
 else:
 	for row in numbers['records']:
-		num_set.add(row['fields']['Number'])
-
-
+		unclean = row['fields']['Number']
+		clean = int(''.join(i for i in unclean if i.isdigit()))
+		num_set.add(clean)
+		print(num_set)
 
 
 airtable_get = "https://api.airtable.com/v0/{}/{}?api_key={}".format(airtable_base, "Texts", airtable_key)
@@ -49,13 +50,15 @@ msg_body = "Hello from Boomer University! \n\n"\
 "{} \n\n"\
 "{}".format(term.upper(), definition.capitalize(),sentence)
 
+send_message = True
 
 for n in num_set:
 	print(n)
-	message = client.messages \
-                    .create(
-                         body=msg_body,
-                         from_='+12168687855',
-                         to=n
-                    )
+	if send_message:
+		message = client.messages \
+	                    .create(
+	                         body=msg_body,
+	                         from_='+12168687855',
+	                         to=n
+	                    )
 
