@@ -28,6 +28,7 @@ dry_run = False
 if dry_run:
 	num_set = set()
 	num_set.add('+14086668054')
+	num_set.add('+11234567890')
 else:
 	for row in numbers['records']:
 		unclean = row['fields']['Number']
@@ -58,10 +59,13 @@ send_message = True
 for n in num_set:
 	# print(n)
 	if send_message:
-		message = client.messages \
-	                    .create(
-	                         body=msg_body,
-	                         from_='+12168687855',
-	                         to=n
-	                    )
+		try:
+			message = client.messages.create(
+		                         body=msg_body,
+		                         from_='+12168687855',
+		                         to=n)
+			# print("Sent to ", n)
+		except:
+			# print("Sending to ", n, " failed")
+			pass
 
