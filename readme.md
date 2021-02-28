@@ -15,7 +15,7 @@ We'll send you a text every day with a new Gen Z slang term. No cap.
 
 Code is written in Python
 
-Other services: Airtable, Twilio, Card
+Other services: Airtable, Twilio, Carrd
 
 
 Standard messaging rates apply. Subject to monthly subscription.
