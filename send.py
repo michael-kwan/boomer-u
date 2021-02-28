@@ -31,9 +31,12 @@ if dry_run:
 else:
 	for row in numbers['records']:
 		unclean = row['fields']['Number']
-		clean = int(''.join(i for i in unclean if i.isdigit()))
-		num_set.add(clean)
-		print(num_set)
+		try:
+			clean = int(''.join(i for i in unclean if i.isdigit()))
+			num_set.add(clean)
+			# print(num_set)
+		except:
+			pass
 
 
 airtable_get = "https://api.airtable.com/v0/{}/{}?api_key={}".format(airtable_base, "Texts", airtable_key)
@@ -53,7 +56,7 @@ msg_body = "Hello from Boomer University! \n\n"\
 send_message = True
 
 for n in num_set:
-	print(n)
+	# print(n)
 	if send_message:
 		message = client.messages \
 	                    .create(
